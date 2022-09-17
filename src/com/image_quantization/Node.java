@@ -5,6 +5,7 @@ abstract public class Node {
     protected Node next;
     protected Node down;
 
+
     abstract public Node getNext();
 
     abstract public void setNext(Node next);

@@ -1,5 +1,10 @@
 package com.image_quantization;
 
+import java.util.NoSuchElementException;
+import java.util.Stack;
+import java.awt.Color;
+
+
 /*
 A two-dimensional linked list which allows insertion and searching of key-value
 pairs in O(log(n)) time, for use in the Map data type.
@@ -15,8 +20,15 @@ public class SkipList {
         return this.totalDataNodes == 0;
     }
 
-    public DataNode search() throws SearchFiledException {
+    public DataNode search(int key) throws NoSuchElementException {
+        Node current = this.head;
 
+        while (current != null) {
+            if (current.next != null) {
+                // Key should be some efficient to search representation of RGB space.
+                if current.next.key == key
+            }
+        }
     }
 
     public HeaderNode getHead() {
