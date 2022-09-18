@@ -34,7 +34,7 @@ public class DataNode extends Node {
     }
 
     @Override
-    public Node getNext() {
+    public DataNode getNext() {
         return this.next;
     }
 

@@ -8,7 +8,7 @@ abstract public class Node {
     protected Object data;
 
 
-    abstract public Node getNext();
+    abstract public DataNode getNext();
 
     abstract public void setNext(DataNode next);
 
