@@ -9,6 +9,10 @@ import java.util.Objects;
  */
 public class DataNode extends Node {
 
+    public DataNode(int key, Object value) {
+        this.key = key;
+        this.data = value;
+    }
 
     @Override
     public boolean equals(Object o) {

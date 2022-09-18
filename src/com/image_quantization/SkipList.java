@@ -1,6 +1,7 @@
 package com.image_quantization;
 
 import java.util.NoSuchElementException;
+import java.util.Stack;
 
 
 /*
@@ -15,6 +16,11 @@ public class SkipList {
     private int totalDataNodes = 0;
 
 
+    /**
+     * Checks if this SkipList is empty.
+     *
+     * @return True if this SkipList is empty, False otherwise.
+     */
     public boolean isEmpty() {
         return this.totalDataNodes == 0;
     }
@@ -42,6 +48,47 @@ public class SkipList {
             }
         }
         throw new NoSuchElementException("No node with key '" + key + "' found.");
+    }
+
+    public void insert(int key, Object value) {
+        if (this.getHead() == null) {  // This is the first item to be added to the SkipList.
+            this.setHead(new HeaderNode());
+            DataNode topLevelTempNode = new DataNode(key, value);
+            this.getHead().setNext(topLevelTempNode);
+            DataNode top = topLevelTempNode;
+            this.totalDataNodes += 1;
+
+            while (Math.random() < 0.5) {
+                // Add another layer to the tower.
+                HeaderNode newHead = new HeaderNode();
+                DataNode subLevelTempNode = new DataNode(key, value);
+                subLevelTempNode.setDown(top);
+                newHead.setDown(this.getHead());
+                newHead.setNext(subLevelTempNode);
+                this.setHead(newHead);
+                top = subLevelTempNode;
+                this.totalDataNodes += 1;
+            }
+        } else {
+            // This is not the first item to be added to this SkipList.
+            Stack<Node> tower = new Stack<>();
+            Node current = this.getHead();
+            // Build a stack for the new nodes position at each level of the tower.
+            while (current != null) {
+                if (current.getNext() != null) {
+                    if (key < current.getNext().getKey()) {
+                        tower.push(current);
+                        current = current.getDown();
+                    } else {
+                        current = current.getNext();
+                    }
+                } else {
+                    tower.push(current);
+                    current = current.getDown();
+                }
+            }
+
+        }
     }
 
     public HeaderNode getHead() {
