@@ -8,13 +8,7 @@ import java.util.Objects;
  * to the next node of its level and to the node on the level below.
  */
 public class DataNode extends Node {
-    private final int key;
-    private Object data;
 
-
-    public DataNode() {
-        this.key = this.hashCode();
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -29,9 +23,32 @@ public class DataNode extends Node {
         return Objects.hash(key, data);
     }
 
+    @Override
+    public Node getDown() {
+        return down;
+    }
+
+    @Override
+    public void setDown(Node down) {
+        this.down = down;
+    }
+
+    @Override
+    public Node getNext() {
+        return this.next;
+    }
+
+    @Override
+    public void setNext(DataNode next) {
+        this.next = next;
+    }
 
     public int getKey() {
         return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 
 
@@ -41,26 +58,6 @@ public class DataNode extends Node {
 
     public void setData(Object data) {
         this.data = data;
-    }
-
-    @Override
-    public Node getNext() {
-        return this.next;
-    }
-
-    @Override
-    public void setNext(Node next) {
-        this.next = next;
-    }
-
-    @Override
-    public Node getDown() {
-        return down;
-    }
-
-    @Override
-    public void setDown(Node down) {
-        this.down = down;
     }
 
 

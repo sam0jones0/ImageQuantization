@@ -26,7 +26,9 @@ public class SkipList {
         while (current != null) {
             if (current.next != null) {
                 // Key should be some efficient to search representation of RGB space.
-                if current.next.key == key
+                if (current.getNext().getKey() == key) {
+
+                }
             }
         }
     }

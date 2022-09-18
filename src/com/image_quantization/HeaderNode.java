@@ -8,12 +8,12 @@ public class HeaderNode extends Node {
 
 
     @Override
-    public Node getNext() {
+    public DataNode getNext() {
         return this.next;
     }
 
     @Override
-    public void setNext(Node next) {
+    public void setNext(DataNode next) {
         this.next = next;
     }
 
@@ -25,5 +25,26 @@ public class HeaderNode extends Node {
     @Override
     public void setDown(Node down) {
         this.down = down;
+    }
+
+    @Override
+    public int getKey() {
+        return this.key;
+    }
+
+    @Override
+    public void setKey(int key) {
+        this.key = key;
+
+    }
+
+    @Override
+    public Object getData() {
+        return this.data;
+    }
+
+    @Override
+    public void setData(Object data) {
+        this.data = data;
     }
 }
