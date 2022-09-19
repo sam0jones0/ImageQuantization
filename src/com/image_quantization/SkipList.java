@@ -135,6 +135,12 @@ public class SkipList {
         }
     }
 
+    /**
+     * Return and remove DataNode with the lowest key.
+     *
+     * @return The Datanode in the SkipList with the lowest key.
+     * @throws NoSuchElementException If the SkipList is empty.
+     */
     public DataNode popMin() throws NoSuchElementException {
         DataNode minNode = this.getMin();
         HeaderNode currentHead = this.getHead();
@@ -148,6 +154,50 @@ public class SkipList {
         this.cleanEmptyLevels();
         this.len -= 1;
         return minNode;
+    }
+
+    /**
+     * Removes Nodes from the SkipList matching the provided key.
+     *
+     * @param key Key to search for matching Nodes to be removed.
+     * @throws NoSuchElementException If the provided key is not found.
+     */
+    public void remove(int key) throws NoSuchElementException {
+        Stack<Node> tower = new Stack<>();
+        Node current = this.getHead();
+
+        // Build a stack of nodes with a next reference matching provided key.
+        while (current != null) {
+            if (current.getNext() != null) {
+                if (current.getNext().getKey() == key) {
+                    tower.push(current);
+                    current = current.getDown();
+                } else if (key > current.getNext().getKey()) {
+                    current = current.getNext();
+                }
+                // Using (int) RBGVal as key instead of OTNode.count should remove need for these lines
+                // else if ( key.count == current.next.key.count
+                // and key.level == current.next.key.level )
+                // current = current.next
+                else {
+                    current = current.getDown();
+                }
+            } else {
+                current = current.getDown();
+            }
+        }
+        if (tower.isEmpty()) {
+            throw new NoSuchElementException("Key not found.");
+        }
+
+        while (!tower.isEmpty()) {
+            current = tower.pop();
+            current.setNext(current.getNext().getNext());
+            this.totalDataNodes -= 1;
+        }
+
+        this.len -= 1;
+        this.cleanEmptyLevels();
     }
 
     public HeaderNode getHead() {
