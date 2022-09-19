@@ -119,6 +119,22 @@ public class SkipList {
         this.len += 1;
     }
 
+    /**
+     * @return The Datanode in the SkipList with the lowest key.
+     * @throws NoSuchElementException If the SkipList is empty.
+     */
+    public DataNode getMin() throws NoSuchElementException {
+        HeaderNode currentHead = this.getHead();
+        while (currentHead.getDown() != null) {
+            currentHead = (HeaderNode) currentHead.getDown();
+        }
+        if (currentHead.getNext() != null) {
+            return currentHead.getNext();
+        } else {
+            throw new NoSuchElementException("The SkipList is empty and has no min node.");
+        }
+    }
+
     public HeaderNode getHead() {
         return head;
     }
