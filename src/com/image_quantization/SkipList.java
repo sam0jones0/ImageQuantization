@@ -211,6 +211,26 @@ public class SkipList {
         }
     }
 
+    /**
+     * @return A DataNode[] array containing each DataNode on the lowest
+     * level of the SkipList.
+     */
+    public DataNode[] getFullList() {
+        DataNode[] allNodes = new DataNode[this.len];
+        Node current = this.getHead();
+        while (current.getDown() != null) {
+            current = current.getDown();
+        }
+        current = (DataNode) current.getNext();
+        int idx = 0;
+        while (current != null) {
+            allNodes[idx] = (DataNode) current;
+            current = current.getNext();
+            idx += 1;
+        }
+        return allNodes;
+    }
+
     public HeaderNode getHead() {
         return head;
     }
