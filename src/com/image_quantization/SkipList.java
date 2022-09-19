@@ -135,6 +135,21 @@ public class SkipList {
         }
     }
 
+    public DataNode popMin() throws NoSuchElementException {
+        DataNode minNode = this.getMin();
+        HeaderNode currentHead = this.getHead();
+        while (currentHead != null) {
+            if (currentHead.getNext().getKey() == minNode.getKey()) {
+                currentHead.setNext(currentHead.getNext().getNext());
+                this.totalDataNodes -= 1;
+            }
+            currentHead = (HeaderNode) currentHead.getDown();
+        }
+        this.cleanEmptyLevels();
+        this.len -= 1;
+        return minNode;
+    }
+
     public HeaderNode getHead() {
         return head;
     }
