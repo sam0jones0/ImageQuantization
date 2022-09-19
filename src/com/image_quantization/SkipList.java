@@ -200,6 +200,17 @@ public class SkipList {
         this.cleanEmptyLevels();
     }
 
+    /**
+     * Remove any levels that are empty.
+     */
+    public void cleanEmptyLevels() {
+        if (!this.isEmpty()) {
+            while (this.getHead().getNext() == null) {
+                this.setHead((HeaderNode) this.getHead().getDown());
+            }
+        }
+    }
+
     public HeaderNode getHead() {
         return head;
     }
