@@ -87,8 +87,36 @@ public class SkipList {
                     current = current.getDown();
                 }
             }
+            Node lowestLevelNode = tower.pop();
+            DataNode subLevelTempNode = new DataNode(key, value);
+            subLevelTempNode.setNext(lowestLevelNode.getNext());
+            lowestLevelNode.setNext(subLevelTempNode);
+            DataNode top = subLevelTempNode;
+            this.totalDataNodes += 1;
 
+            while (Math.random() < 0.5) {
+                // Add the new node to its correct position on the next level up.
+                if (tower.isEmpty()) {
+                    HeaderNode newHead = new HeaderNode();
+                    DataNode tempNode = new DataNode(key, value);
+                    tempNode.setDown(top);
+                    newHead.setDown(this.getHead());
+                    newHead.setNext(tempNode);
+                    this.setHead(newHead);
+                    top = tempNode;
+                } else {
+                    // Move up a level and insert the DataNode into its correct position.
+                    Node nextLevelNode = tower.pop();
+                    DataNode tempNode = new DataNode(key, value);
+                    tempNode.setNext(nextLevelNode.getNext());
+                    nextLevelNode.setNext(tempNode);
+                    tempNode.setDown(top);
+                    top = tempNode;
+                }
+                this.totalDataNodes += 1;
+            }
         }
+        this.len += 1;
     }
 
     public HeaderNode getHead() {
