@@ -1,4 +1,4 @@
-package com.image_quantization;
+package com.skiplist;
 
 /**
  * A HeaderNode of a level of a SkipList. Has references to the HeaderNode below
