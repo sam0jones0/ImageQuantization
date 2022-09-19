@@ -1,4 +1,4 @@
-package com.image_quantization;
+package com.skiplist;
 
 abstract public class Node {
 

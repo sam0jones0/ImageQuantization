@@ -1,4 +1,4 @@
-package com.image_quantization;
+package com.skiplist;
 
 import java.util.NoSuchElementException;
 import java.util.Stack;
@@ -123,7 +123,7 @@ public class SkipList {
      * @return The Datanode in the SkipList with the lowest key.
      * @throws NoSuchElementException If the SkipList is empty.
      */
-    public DataNode getMin() throws NoSuchElementException {
+    public DataNode peekMin() throws NoSuchElementException {
         HeaderNode currentHead = this.getHead();
         while (currentHead.getDown() != null) {
             currentHead = (HeaderNode) currentHead.getDown();
@@ -142,7 +142,7 @@ public class SkipList {
      * @throws NoSuchElementException If the SkipList is empty.
      */
     public DataNode popMin() throws NoSuchElementException {
-        DataNode minNode = this.getMin();
+        DataNode minNode = this.peekMin();
         HeaderNode currentHead = this.getHead();
         while (currentHead != null) {
             if (currentHead.getNext().getKey() == minNode.getKey()) {
@@ -221,7 +221,7 @@ public class SkipList {
         while (current.getDown() != null) {
             current = current.getDown();
         }
-        current = (DataNode) current.getNext();
+        current = current.getNext();
         int idx = 0;
         while (current != null) {
             allNodes[idx] = (DataNode) current;
@@ -254,6 +254,4 @@ public class SkipList {
     public void setTotalDataNodes(int totalDataNodes) {
         this.totalDataNodes = totalDataNodes;
     }
-
-
 }
